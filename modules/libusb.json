@@ -1,0 +1,10 @@
+{
+	"name": "libusb",
+	"sources": [
+		{
+			"type": "git",
+			"url": "https://github.com/libusb/libusb.git",
+			"tag": "v1.0.26"
+		}
+	]
+}
