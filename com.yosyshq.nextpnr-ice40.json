@@ -1,0 +1,53 @@
+{
+	"$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json",
+	"id": "com.yosyshq.nextpnr-ice40",
+	"runtime": "org.kde.Platform",
+	"runtime-version": "5.15",
+	"sdk": "org.kde.Sdk",
+	"command": "nextpnr-ice40",
+	"finish-args": ["--share=ipc", "--socket=x11", "--socket=wayland", "--filesystem=host" ],
+	"cleanup": [
+		"/include"
+	],
+	"modules": [
+		"./modules/python.json",
+		"./modules/eigen.json",
+		"./modules/boost.json",
+		{
+			"name": "icestorm-partial",
+			"buildsystem": "simple",
+			"build-commands": [
+				"make CXX=g++ PREFIX=/app -C icebox",
+				"make CXX=g++ PREFIX=/app -C icetime",
+				"make PREFIX=/app -C icebox install",
+				"make PREFIX=/app -C icetime install",
+				"install -Dm644 COPYING /app/usr/share/licenses/icestorm/LICENSE"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/YosysHQ/icestorm.git",
+					"commit": "a545498"
+				}
+			]
+		},
+		{
+			"name": "nextpnr-ice40",
+			"buildsystem": "cmake-ninja",
+			"config-opts": [
+				"-DARCH=ice40",
+				"-DBUILD_PYTHON=ON",
+				"-DBUILD_GUI=ON",
+				"-DCMAKE_INSTALL_PREFIX=/app",
+				"-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/YosysHQ/nextpnr.git",
+					"tag": "nextpnr-0.4"
+				}
+			]
+		}
+	]
+}
