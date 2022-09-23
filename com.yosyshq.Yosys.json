@@ -23,7 +23,7 @@
 			"name": "yosys",
 			"buildsystem": "simple",
 			"build-commands": [
-				"make -j32 PREFIX=\"/app\"",
+				"make -j $FLATPAK_BUILDER_N_JOBS PREFIX=\"/app\"",
 				"make STRIP=':' PREFIX=\"/app\" install"
 			],
 			"sources": [
