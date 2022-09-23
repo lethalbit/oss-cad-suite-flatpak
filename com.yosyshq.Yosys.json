@@ -2,7 +2,7 @@
 	"$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json",
 	"id": "com.yosyshq.Yosys",
 	"runtime": "org.kde.Platform",
-	"runtime-version": "6.3",
+	"runtime-version": "5.15-21.08",
 	"sdk": "org.kde.Sdk",
 	"command": "yosys",
 	"finish-args": ["--share=ipc", "--filesystem=host" ],
@@ -14,7 +14,6 @@
 		"*.la"
 	],
 	"modules": [
-		"./modules/python.json",
 		"./modules/boost.json",
 		"./modules/libffi.json",
 		"./modules/tcl.json",
