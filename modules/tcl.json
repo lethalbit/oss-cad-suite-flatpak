@@ -1,7 +1,14 @@
 {
 	"name": "tcl",
 	"buildsystem": "autotools",
-	"builddir": true,
+	"config-opts": [
+		"--enable-64-bit",
+		"--prefix=/app",
+		"--enable-symbols"
+	],
+	"post-install": [
+		"chmod 755 /app/lib/libtcl8.6.so"
+	],
 	"subdir": "unix",
 	"sources": [
 		{

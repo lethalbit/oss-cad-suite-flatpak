@@ -1,0 +1,50 @@
+{
+	"$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json",
+	"id": "com.yosyshq.Yosys",
+	"runtime": "org.kde.Platform",
+	"runtime-version": "6.3",
+	"sdk": "org.kde.Sdk",
+	"command": "yosys",
+	"finish-args": ["--share=ipc", "--filesystem=host" ],
+	"cleanup": [
+		"/include",
+		"/man",
+		"/share/man",
+		"/share/info",
+		"*.la"
+	],
+	"modules": [
+		"./modules/python.json",
+		"./modules/boost.json",
+		"./modules/libffi.json",
+		"./modules/tcl.json",
+		"./modules/ncurses.json",
+		"./modules/libreadline.json",
+		{
+			"name": "yosys",
+			"buildsystem": "simple",
+			"build-commands": [
+				"make -j32 PREFIX=\"/app\"",
+				"make STRIP=':' PREFIX=\"/app\" install"
+			],
+			"sources": [
+				{
+					"type": "file",
+					"path": "./contrib/Makefile.conf",
+					"sha256": "419691b9f43f9a79e47e6fe55daf738856c8be6e2b196f0e9cd304df46936e71"
+				},
+				{
+					"type": "git",
+					"url": "https://github.com/YosysHQ/yosys.git",
+					"tag": "yosys-0.21"
+				},
+				{
+					"type": "git",
+					"dest": "abc",
+					"url": "https://github.com/YosysHQ/abc.git",
+					"commit": "20f970f"
+				}
+			]
+		}
+	]
+}

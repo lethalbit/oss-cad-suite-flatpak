@@ -1,6 +1,15 @@
 {
 	"name": "libreadline",
 	"buildsystem": "autotools",
+	"config-opts": [
+		"--with-curses"
+	],
+	"make-install-args": [
+		"SHLIB_LIBS=-lncursesw -ltinfo"
+	],
+	"make-args": [
+		"SHLIB_LIBS=-lncursesw -ltinfo"
+	],
 	"sources": [
 		{
 			"type": "archive",
