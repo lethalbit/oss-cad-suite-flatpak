@@ -1,0 +1,56 @@
+{
+	"$schema": "https://raw.githubusercontent.com/flatpak/flatpak-builder/main/data/flatpak-manifest.schema.json",
+	"id": "com.yosyshq.prjtrellis",
+	"runtime": "org.kde.Platform",
+	"runtime-version": "5.15-21.08",
+	"sdk": "org.kde.Sdk",
+	"command": "exec-wrapper-prjtrellis.sh",
+	"finish-args": [
+		"--share=ipc",
+		"--socket=x11",
+		"--socket=wayland",
+		"--filesystem=host"
+	],
+	"cleanup": [
+		"/include",
+		"/include",
+		"/man",
+		"/share/man",
+		"/share/info",
+		"*.la"
+	],
+	"modules": [
+		"./modules/boost.json",
+		{
+			"name": "prjtrellis",
+			"buildsystem": "cmake-ninja",
+			"subdir": "libtrellis",
+			"config-opts": [
+				"-DCMAKE_INSTALL_PREFIX=/app",
+				"-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+				"-DCURRENT_GIT_VERSION=488f4e7"
+			],
+			"sources": [
+				{
+					"type": "git",
+					"url": "https://github.com/YosysHQ/prjtrellis.git",
+					"commit": "488f4e7"
+				}
+			]
+		},
+		{
+			"name": "exec-wrapper",
+			"buildsystem": "simple",
+			"build-commands": [
+				"install -Dm755 exec-wrapper-prjtrellis.sh /app/bin/exec-wrapper-prjtrellis.sh"
+			],
+			"sources": [
+				{
+					"type": "file",
+					"path": "./contrib/exec-wrapper-prjtrellis.sh",
+					"sha256": "6600383b22de6ffe3604839abc41d05a1af592b8ab8ebd20f5240c2bbd5d0963"
+				}
+			]
+		}
+	]
+}
