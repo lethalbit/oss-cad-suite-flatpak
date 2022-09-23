@@ -1,5 +1,9 @@
 {
 	"name": "python",
+	"config-opts": [
+		"--enable-shared",
+		"--with-lto"
+	],
 	"sources": [
 		{
 			"type": "archive",
